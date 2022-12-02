@@ -60,9 +60,52 @@ def play_round(opponent, player):
             return Result.DRAW
     raise ValueError('Input not a valid RPS play')
 
+p2_translation = {
+    'A': Play.ROCK,
+    'B': Play.PAPER,
+    'C': Play.SCISSORS,
+    'X': Result.LOSE,
+    'Y': Result.DRAW,
+    'Z': Result.WIN
+}
+
+def part2():
+    rounds = format_data(read_input('data/day02.txt'))
+    score = 0
+    for game_round in rounds:
+        opponent_code, result_code = game_round.split(' ')
+        opponent, result = p2_translation[opponent_code], p2_translation[result_code]
+        score += find_round_score(opponent, result)
+    return score
+
+def find_round_score(opponent, result):
+    if opponent.name == 'ROCK':
+        if result.name == 'WIN':
+            return Result.WIN.value + Play.PAPER.value
+        if result.name == 'DRAW':
+            return Result.DRAW.value + Play.ROCK.value
+        if result.name == 'LOSE':
+            return Result.LOSE.value + Play.SCISSORS.value
+    if opponent.name == 'SCISSORS':
+        if result.name == 'WIN':
+            return Result.WIN.value + Play.ROCK.value
+        if result.name == 'DRAW':
+            return Result.DRAW.value + Play.SCISSORS.value
+        if result.name == 'LOSE':
+            return Result.LOSE.value + Play.PAPER.value
+    if opponent.name == 'PAPER':
+        if result.name == 'WIN':
+            return Result.WIN.value + Play.SCISSORS.value
+        if result.name == 'DRAW':
+            return Result.DRAW.value + Play.PAPER.value
+        if result.name == 'LOSE':
+            return Result.LOSE.value + Play.ROCK.value
+    raise ValueError('Input not a valid RPS play')
+
 
 def main():
-    print('The given strategy will score {}'.format(part1()))
+    print('The assumed strategy will score {}'.format(part1()))
+    print('The given strategy will score {}'.format(part2()))
 
 if __name__ == '__main__':
     main()
