@@ -18,6 +18,16 @@ class Tower:
     def move(self, other_tower):
         other_tower.add(self.pop())
 
+    def add_bulk(self, items):
+        self.stack.extend(items)
+
+    def pop_bulk(self, amount):
+        self.stack, output = self.stack[:-amount], self.stack[-amount:]
+        return output
+    
+    def move_bulk(self, other_tower, amount):
+        other_tower.add_bulk(self.pop_bulk(amount))
+
     def __str__(self):
         return 'Tower {} containing stack {}'.format(self.label, str(self.stack))
 
@@ -55,9 +65,21 @@ def read_instruction(instruction):
     matches = pattern.fullmatch(instruction)
     return int(matches[1]), int(matches[2]), int(matches[3])
 
+def part2():
+    columns, procedure = read_input('data/day05.txt').split('\n\n')
+    instructions = procedure.split('\n')
+    towers = read_columns(columns)
+    for instruction in instructions:
+        execute_instruction_part2(towers, instruction)
+    return "".join([tower.peek() for tower in towers.values()])
+
+def execute_instruction_part2(towers, instruction):
+    count, from_tower, to_tower = read_instruction(instruction)
+    towers[from_tower].move_bulk(towers[to_tower], count)
 
 def main():
     print('The top crates are {}'.format(part1()))
+    print('The top crates in the new scheme are {}'.format(part2()))
 
 if __name__ == '__main__':
     main()
