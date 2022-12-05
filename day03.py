@@ -1,11 +1,11 @@
-from lib.handle_input import read_input, format_data
+from lib.handle_input import read_input
 
 def prioritize(letter):
     priorities = '0abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     return priorities.index(letter)
 
 def part1():
-    rucksacks = format_data(read_input('data/day03.txt'))
+    rucksacks = read_input('data/day03.txt').split('\n')
     total_priority = 0
     for rucksack in rucksacks:
         compartment1 = set(rucksack[:len(rucksack) // 2])
@@ -15,7 +15,7 @@ def part1():
     return total_priority
 
 def part2():
-    rucksacks = format_data(read_input('data/day03.txt'))
+    rucksacks = read_input('data/day03.txt').split('\n')
     i = 0
     total_priority = 0
     while i < len(rucksacks):

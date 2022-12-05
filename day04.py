@@ -1,5 +1,4 @@
-from lib.handle_input import read_input, format_data
-import pdb
+from lib.handle_input import read_input
 
 class Pair:
     def __init__(self, f1, f2, s1, s2):
@@ -22,7 +21,7 @@ def is_contained(pair):
     return False
 
 def part1():
-    pairs = format_data(read_input('data/day04.txt'))
+    pairs = read_input('data/day04.txt').split('\n')
     return [is_contained(read_line(pair)) for pair in pairs].count(True)
 
 def overlaps(pair):
@@ -35,7 +34,7 @@ def overlaps(pair):
     return False
 
 def part2():
-    pairs = format_data(read_input('data/day04.txt'))
+    pairs = read_input('data/day04.txt').split('\n')
     return [overlaps(read_line(pair)) for pair in pairs].count(True)
 
 def main():
