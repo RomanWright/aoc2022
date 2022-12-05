@@ -1,7 +1,4 @@
-from lib.handle_input import read_input
-
-def format_data(input_data):
-    return input_data.rstrip('\n').split('\n')
+from lib.handle_input import read_input, format_data
 
 def prioritize(letter):
     priorities = '0abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'

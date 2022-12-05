@@ -1,5 +1,5 @@
 from enum import Enum
-from lib.handle_input import read_input
+from lib.handle_input import read_input, format_data
 
 class Play(Enum):
     ROCK = 1
@@ -19,10 +19,6 @@ p1_translation = {
     'Y': Play.PAPER,
     'Z': Play.SCISSORS
 }
-
-def format_data(input_data):
-    return input_data.rstrip('\n').split('\n')
-
 def part1():
     rounds = format_data(read_input('data/day02.txt'))
     score = 0
