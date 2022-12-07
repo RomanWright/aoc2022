@@ -27,9 +27,7 @@ class Directory:
 root = Directory("/", None)
 root.parent = root
 
-def part1(data):
-    command_responses = map(lambda x: x.strip(), data.split('$'))
-    assemble_tree(command_responses)
+def part1():
     sum_folder_sizes = 0
     for node in traverse(root):
         if node.total_size() <= 100000:
@@ -68,10 +66,24 @@ def traverse(start):
         yield node
     return None
 
+def part2():
+    total = 70000000
+    required = 30000000
+    used = root.total_size()
+    unused = total - used
+    goal = required - unused
+    smallest_acceptable = root
+    for node in traverse(root):
+        if node.total_size() < smallest_acceptable.total_size() and node.total_size() > goal:
+            smallest_acceptable = node
+    return smallest_acceptable.total_size()
 
 def main():
     data = read_input('data/day07.txt')
-    print('The folders with small size total {}'.format(part1(data)))
+    command_responses = map(lambda x: x.strip(), data.split('$'))
+    assemble_tree(command_responses)
+    print('The folders with small size total {}'.format(part1()))
+    print('The smallest folder that can be deleted is of size {}'.format(part2()))
 
 if __name__ == '__main__':
     main()
